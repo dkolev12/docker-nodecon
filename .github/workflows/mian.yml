@@ -14,14 +14,14 @@ jobs:
     - uses: azure/docker-login@v1
       with:
         login-server: nodecon.azurecr.io
-        username: ${{ secrets.ADMIN_USER }}
-        password: ${{ secrets.ADMIN_PASS }}
+        username: ${{ secrets.USER }}
+        password: ${{ secrets.PASS }}
     - run: |
           docker build -t nodecon/react-test -f Dockerfile.dev .
           docker run -e CI=true nodecon/react-test npm test   
 
-      - name: Generate deployment package
-        run: zip -r next.zip . -x '*.git*'
+    - name: Generate deployment package
+      run: zip -r next.zip . -x '*.git*'
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v4.3.1
